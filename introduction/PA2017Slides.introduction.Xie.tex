@@ -1,0 +1,227 @@
+\documentclass[handout]{beamer}
+\usepackage{lmodern}
+
+\usepackage{ctex}
+
+\usetheme{CambridgeUS} % try Madrid, Pittsburgh
+\usecolortheme{beaver}
+\usefonttheme[onlymath]{serif} % try "professionalfonts"
+
+
+\graphicspath{{./figure/}}
+
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
+
+\usepackage{amsmath, amsfonts, latexsym, mathtools, extarrows}
+\usepackage{centernot} % for ``not implies'' symbol
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\usepackage{pifont}
+\usepackage{hyperref}
+\usepackage{comment}
+
+\usepackage[normalem]{ulem}
+\newcommand{\middlewave}[1]{\raisebox{0.5em}{\uwave{\hspace{#1}}}}
+
+\usepackage{graphicx, subcaption}
+
+\usepackage{verbatim}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+% table
+\usepackage{amstext} % for \text macro
+\usepackage{array}   % for \newcolumntype macro
+\newcolumntype{L}{>{$}l<{$}} % math-mode version of "l" column type
+\newcolumntype{C}{>{$}c<{$}} % math-mode version of "c" column type
+\newcolumntype{R}{>{$}r<{$}} % math-mode version of "r" column type
+\newcommand{\pno}[1]{\textcolor{blue}{\scriptsize [Problem: #1]}}
+\newcommand{\set}[1]{\{#1\}}
+\newcommand{\cmark}{\textcolor{red}{\ding{51}}}
+\newcommand{\xmark}{\textcolor{red}{\ding{55}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% for fig without caption: #1: width/size; #2: fig file
+\newcommand{\fignocaption}[2]{
+	\begin{figure}[htp]
+		\centering
+		\includegraphics[#1]{#2}
+	\end{figure}
+}
+% for fig with caption: #1: width/size; #2: fig file; #3: fig caption
+\newcommand{\fig}[3]{
+	\begin{figure}[htp]
+		\centering
+		\includegraphics[#1]{#2}
+		\caption[labelInTOC]{#3}
+	\end{figure}
+}
+\newcommand{\titletext}{Programming Assignment Lecture \uppercase\expandafter{\romannumeral1}}
+
+%%%%%%%%%%%%%%%%%%%%
+\title{\titletext}
+\subtitle{Introduction}
+\author{Xie}
+\institute{xiemhemail@gmail.com}
+\date{Sep ??, 2017}
+\AtBeginSection[]{
+	\begin{frame}[noframenumbering, plain]
+		\frametitle{\titletext}
+		\tableofcontents[currentsection, sectionstyle=show/shaded, subsectionstyle=show/show/hide]
+	\end{frame}
+}
+%%%%%%%%%%
+\begin{document}
+	\maketitle
+	
+\begin{frame}{Basic Info}
+	\begin{itemize}
+		\item 课程内容
+		\begin{itemize}
+			\item PA1-PA??
+		\end{itemize}
+		\item 上课时间
+		\begin{itemize}
+			\item ???
+		\end{itemize}
+		\item 考核方式
+			\begin{itemize}
+				\item 日常按阶段提交工程 + 实验报告
+				\item 请在阶段deadline前提交工程
+			\end{itemize}
+		\item \alert{教程网站}
+		\begin{itemize}
+			\item https://nju-ics.gitbooks.io/ics2017-programming-assignment/
+			\item \huge 请大家每天至少关注一次页面中的“最新消息”
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Teacher and T.A.s}
+	%TODO
+	emmmmm
+\end{frame}
+
+\section{ICS,PA and Computer System}
+
+\begin{frame}
+	\centering{\huge Why we need learn ICS? -- yzh}
+\end{frame}
+
+\begin{frame}[fragile]{Motivation}
+\begin{exampleblock}{Question}
+\begin{verbatim}
+int main()
+{
+    printf("Hello World");
+    return 0;
+}
+\end{verbatim}
+What the computer are doing when you execute the program above？
+\end{exampleblock}
+
+\begin{alertblock}{Tip}
+	This may appear in exam.
+\end{alertblock}
+
+\end{frame}
+
+
+
+
+\begin{frame}{System Stack}
+\begin{table}
+	\centering
+	\begin{tabular}{|c|}
+		\hline
+		Application \\	
+		\hline
+		Algorithm\\
+		\hline
+		Programming Language\\
+		\hline
+		Operating System/Virtual Machines\\
+		\hline
+		\alert{Instruction Set Architecture}		\\
+		\hline
+		Micro-architecture\\
+		\hline
+		Register-Transfer Level\\
+		\hline
+		Gates\\
+		\hline
+		Circuits\\
+		\hline
+		Devices\\
+		\hline
+		Physics\\
+		\hline
+	\end{tabular}
+\end{table}
+\end{frame}
+
+
+
+\begin{frame}{Aims of PA}
+	\begin{description}
+		\item[Aims]
+		\begin{itemize}
+		\item	\textbf{Systems thinking}
+		\item	Understand how program run on a computer
+		\item	Enhance \textbf{coding} ability
+		\item	Prepared for later courses (OS,Compiling)
+		\end{itemize}
+		\pause
+		\item[Way]Complete a tiny but entire computer system and run program on it.
+		\pause
+		\item[PA] \alert{\huge NEMU}(\textit{i.e. NJU Emulator})
+	\end{description}
+\end{frame}
+
+
+
+\begin{frame}{Resources}
+	\begin{description}
+		\item [Plantform and tools] IA-32 + GNU/Linux + gcc + C	
+		\item [Guidebook] https://nju-ics.gitbooks.io/ics2017-programming-assignment/
+		\item [Skeleton]https://github.com/NJU-ProjectN/ics-pa
+	\end{description}
+	\begin{alertblock}{Tip}
+		You can download the PDF or epub version of guide in github.
+	\end{alertblock}
+\end{frame}
+
+%\begin{frame}{学生体会}
+%	2017.1.11 2:14AM   
+%	
+%	不相信所谓的执念, 本已打算放弃, 交换了bt指令的源操作数和目的操作数, 出现了在别人家的电脑上出现过无数次的画面, 耳边是Anan Ryoko的Refrain, 却已经难以抑制地在只有一个人的寝室里失声痛哭. 
+%	
+%	
+%	从汇编语言课程开始听闻PA实验, 举步维艰地进行每一个阶段, 无数个不眠的深夜, 第二天拖着疲惫的身体睁着朦胧的睡眼去上课, 我一次次地怀疑自己, 一次次想要放弃. 现在想来, 这也印证了”成长是一个痛苦的过程”这段文字. 如果说承认自己的软弱, 是成长的第一步. 那么可以恬不知耻地说, 我已经真正从19岁走向20岁了. 是的, 你在专业上的技不如人, 迟早有一天会找上来, 我已经真正感受到了. 既然选择了远方, 便只顾风雨兼程. …当时有很多规划, 现在看来都在不断调整, 然而有一点没有变, 我的人生职业目标: 成为一名IT精英. 仙剑的运行作为IT路上的第一个里程碑吧. 
+%\end{frame}
+
+
+
+\section{The Story of Computer}
+\begin{frame}{DLC}
+	\begin{enumerate}
+		\item We all have completed the Digital Logic Circuit Course.(Taught by 张泽生 吴海军)
+			\begin{enumerate}
+				\item summator
+				\item register
+				\item multiplexer
+				\item \textit{etc.}
+			\end{enumerate}
+		\item 
+	\end{enumerate}
+\end{frame}
+
+\section{Brand new PA}
+
+\begin{frame}{The End}
+	\fignocaption{scale=0.8}{studentFeedback.png}
+\end{frame}
+
+
+\end{document}
