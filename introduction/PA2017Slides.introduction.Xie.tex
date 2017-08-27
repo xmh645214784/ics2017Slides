@@ -1,7 +1,5 @@
-\documentclass[handout]{beamer}
+\documentclass{beamer}
 \usepackage{lmodern}
-
-\usepackage{ctex}
 
 \usetheme{CambridgeUS} % try Madrid, Pittsburgh
 \usecolortheme{beaver}
@@ -32,6 +30,9 @@
 \usepackage{verbatim}
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
+
+%hyper ref
+\usepackage{hyperref}
 
 % table
 \usepackage{amstext} % for \text macro
@@ -93,13 +94,14 @@
 		\end{itemize}
 		\item Assessment methods
 			\begin{itemize}
-				\item Submit project and report.
-				\item Before \textbf{stage's deadline}.
+				\item Submit project and report before \textbf{deadline}.
+				\item An act of plagiarism is absolutely forbidden.
+				\item For more details, see \href{https://nju-ics.gitbooks.io/ics2017-programming-assignment/content/submit.html}{\uwave{\uppercase{submit requirement webpage}}}.
 			\end{itemize}
 		\item \alert{Instruction}
 		\begin{itemize}
 			\item https://nju-ics.gitbooks.io/ics2017-programming-assignment/
-			\item \alert\huge Please check the "news" module of website at least once each day.
+			\item \alert{\huge Please check the "news" module of website at least once each day.}
 		\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -124,7 +126,7 @@
 \section{From Computer System, to ICS, to PA}
 
 \begin{frame}
-	\centering{\huge Why we need learn ICS? -- yzh}
+	\centering{\huge Why we need learn ICS?}
 \end{frame}
 
 \begin{frame}[fragile]{Motivation}
@@ -194,10 +196,8 @@ What the computer are doing when you execute the program above？
 		\pause
 		\item[Way]Complete a tiny but entire computer system and run program on it.
 		\pause
-		\item<1>[PA] \alert{\huge NEMU}(\textit\uwave{ i.e. NJU Emulator})
+		\item[PA] \alert{\huge NEMU}(\textit{\uwave i.e. NJU Emulator})
 	\end{description}
-
-\pause
 \begin{exampleblock}{Question}
 	\huge What is an \textit{emulator}?
 \end{exampleblock}
@@ -263,14 +263,65 @@ What the computer are doing when you execute the program above？
 
 \end{frame}
 
-\begin{frame}{}
-	\fignocaption{scale=0.3}{emulate.png}
-	\begin{alertblock}{Reference Answer}
-		He can’t distinguish whether he lives in an virtual environment.
-	\end{alertblock}
+
+\begin{frame}{Task of PA}
+	\begin{block}{Task of PA}
+		To realize \alert{NEMU}, a  simplified x86 system-wide \textbf{emulator}.
+	\end{block}
+%\begin{columns}
+%	\begin{column}{0.30\textwidth}
+%		\begin{table}[htbp]
+%			\begin{tabular}{|c|}
+%				\hline
+%				"Hello world" program\\
+%				\hline
+%				GNU/Linux\\
+%				\hline
+%				Computer hardware\\
+%				\hline
+%			\end{tabular}
+%		\end{table}
+%	
+%		\begin{table}[htbp]
+%		\begin{tabular}{|c|}
+%			\hline
+%			SuperMario\\
+%			\hline
+%			Simulated NES hardware\\
+%			\hline
+%			NES Emulator\\
+%			\hline
+%			GNU/Linux\\
+%			\hline
+%			Computer hardware\\
+%			\hline
+%		\end{tabular}
+%	\end{table}
+%	\end{column}
+%	
+%	\begin{column}{0.30\textwidth}
+%	\begin{table}[htbp]
+%		\begin{tabular}{|c|}
+%			\hline
+%			"Hello world" program\\
+%			\hline
+%			Micro OS\\
+%			\hline
+%			Simulated x86 hardware\\
+%			\hline
+%			NEMU\\
+%			\hline
+%			GNU/Linux\\
+%			\hline
+%			Computer hardware\\
+%			\hline
+%		\end{tabular}
+%	\end{table}	
+%	\end{column}
+%	
+%\end{columns}
+\fignocaption{scale=0.3}{emulator.png}
 \end{frame}
-
-
 
 %\begin{frame}{学生体会}
 %	2017.1.11 2:14AM   
@@ -281,16 +332,18 @@ What the computer are doing when you execute the program above？
 %	从汇编语言课程开始听闻PA实验, 举步维艰地进行每一个阶段, 无数个不眠的深夜, 第二天拖着疲惫的身体睁着朦胧的睡眼去上课, 我一次次地怀疑自己, 一次次想要放弃. 现在想来, 这也印证了”成长是一个痛苦的过程”这段文字. 如果说承认自己的软弱, 是成长的第一步. 那么可以恬不知耻地说, 我已经真正从19岁走向20岁了. 是的, 你在专业上的技不如人, 迟早有一天会找上来, 我已经真正感受到了. 既然选择了远方, 便只顾风雨兼程. …当时有很多规划, 现在看来都在不断调整, 然而有一点没有变, 我的人生职业目标: 成为一名IT精英. 仙剑的运行作为IT路上的第一个里程碑吧. 
 %\end{frame}
 
-
+\begin{frame}{Transition}
+	\centering {\huge{So how we emulate a computer?}}
+\end{frame}
 
 \section{How we emulate a computer? $\longrightarrow$ The story of computer}
 \begin{frame}{DLC}
 	\begin{itemize}
-		\item Most of you have completed the Digital Logic Circuit Course.(Taught by 张泽生 吴海军)
+		\item Most of you have completed the Digital Logic Circuit Course.(Taught by zzs whj)
 			\begin{itemize}
-				\item summator
-				\item register
-				\item multiplexer
+				\item Adder
+				\item Register
+				\item Multiplexer
 				\item \textit{etc.}
 			\end{itemize}
 		\pause
@@ -298,11 +351,183 @@ What the computer are doing when you execute the program above？
 	\end{itemize}
 \end{frame}
 
+\begin{frame}{The simplest computer- Turing machine}
+\begin{block}{Ultimate goal of computer}
+	Run programs on it.
+\end{block}
+	\begin{description}
+		\centering
+		\item[To place programs] Memory
+		\item[To process data]Adder
+		\item[To store temporary results efficiently]Reg
+	\end{description}
+	\fignocaption{scale=0.5}{trm.png}
+\end{frame}
+
+\begin{frame}{The simplest computer- Turing machine}
+	\begin{itemize}
+		\item TRM = Reg + Adder + Mem
+		\begin{itemize}
+			\item These are all what we learned in DLC!
+		\end{itemize}
+		\item Computers read data from Mem, store them to Reg, do some calculate and write the result to Mem.
+	\end{itemize}
+	\fignocaption{scale=0.5}{trm.png}
+\end{frame}
+
+\begin{frame}{State of TRM}
+	\begin{itemize}
+		\item Reg and Mem are all Sequential Logic Device.They can store value (i.e. state).
+		\item The process of computer working = These sequential logical devices  \alert{transfer one state to another state}
+	\end{itemize}
+	\fignocaption{scale=0.3}{stateTRM.png}
+\end{frame}
+
+\begin{frame}{Instructions of TRM}
+	\begin{itemize}
+		\item This large state machine does have abundant states.
+		\item But how one state transfer to another is not at liberty.
+		\item \alert{Instructions = Commands that guide the state transition of computer}
+		\begin{itemize}
+			\item R/W Mem ,Computing
+		\end{itemize}
+		\item \alert{Program = A lot of instructions}	
+	\end{itemize}
+\fignocaption{scale=0.4}{stateTRM2.png}
+\end{frame}
+
+\begin{frame}{Instruction Set}
+	\begin{itemize}
+		\item \alert{Instruction Set = All things computer can do}
+		\begin{itemize}
+			\item	mov, inc,jmp
+		\end{itemize}
+
+\end{itemize}
+
+\begin{block}{Question}
+	What can TRM do with just these instructions?
+\end{block}
+\pause
+\begin{itemize}
+		\item Computability theory shows that TRM can do anything!
+		\begin{description}
+			\item [loop]  jmp
+			\item [add] inc,inc,inc,inc,inc...
+			\item [multiply] add,add,add,add... 
+			\item [function call] mov (transfer of parameters),jmp(transfer of control)
+		\end{description}
+		
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}{Instruction Set}
+	\begin{itemize}
+		\item However,the speed of TRM is so slow.
+		\item Why do we add more powerful instructions to the computer?
+		\item \alert{Modern computer Instruction Set}(x86, mips…)
+		\begin{itemize}
+			\item mul,div, cmp, bit operation, string manipulation…
+			\item Adder$\longrightarrow$ALU 
+		\end{itemize}
+
+	\end{itemize}
+	\fignocaption{scale=0.4}{modernisa.png}
+\end{frame}
+
+\begin{frame}{Input \& Output}
+	\begin{block}{Question}
+		Now,it seems that we have a powerful computer.Are there any unsatisfactory drawbacks?
+	\end{block}
+	\begin{itemize}
+		\pause
+		\item It can only do computing!
+		\item To interact with the outside world, \alert{we need to add I/O devices}
+		\item plus with some relative instructions.
+	\end{itemize}
+	
+	\fignocaption{scale=0.4}{io.png}
+\end{frame}
+
+\begin{frame}{Interrupt \& Exception}
+	\begin{itemize}
+		\item Besides running regular program, computer should deal with emergencies whenever possible.
+		\item Such as,
+		\begin{itemize}
+			\item Inner exception: division by 0, access violation, trap etc.
+			\item Outer interruption:Keyboard, device ready,etc.
+		\end{itemize}	
+		\item	\alert{We need add asynchronous processing unit to deal with emergencies.}
+	\end{itemize}
+	\fignocaption{scale=0.4}{interrupt.png}
+\end{frame}
+
+\begin{frame}{Multitask}
+\begin{block}{Question again}
+	Now,it seems that we have a powerful computer.Are there any unsatisfactory drawbacks?
+\end{block}
+\pause
+\begin{itemize}
+	\item Monotask $\longrightarrow$ Mutitask
+	\item \alert{Time-division multiplexing}: Improve the efficiency of resources usages.
+	\begin{itemize}
+		\item CPU, I/O Device: Take turns!
+	\end{itemize}
+\end{itemize}
+\begin{block}{Question}
+	Can tasks use memory exclusively by turns?What else should we do in practice? 
+\end{block}
+\pause
+\begin{alertblock}{Answer}
+	Certainly not.Exclusive memory using will cause inefficiency.\\
+\alert{We should add MMU for memory protection}.
+\end{alertblock}
+
+%	\fignocaption{scale=0.4}{am.png}
+\end{frame}
+
+\begin{frame}{AM(Abstract Machine)}
+\centering{\huge{AM = TRM + IOE + ASYE + PTE + MPE}}
+\begin{itemize}
+	\item TRM(Turing Machine)
+	\item IOE(I/O Extension)
+	\item ASYE(Asynchronous Extension)
+	\item PTE(Protection Extension)
+	\item MPE(Multi-Processor Extension) (not included in PA)
+\end{itemize}
+\fignocaption{scale=0.4}{am.png}
+\end{frame}
+
+\begin{frame}{Meaning of AM}
+	\begin{itemize}
+		\item Devices vary from computer to computer, and ISA.
+		\item If we predefine some APIs which computers can do, then all computers realize them in bottom,we'll get a unified Abstract Machine.
+		\begin{itemize}
+			\item Then programs can directly run on AM with no care about the differences among ISAs.
+		\end{itemize}
+		
+		\item ISA = Interface between software and hardware
+		\item APIs of AM = Software of ISA.
+		\begin{itemize}
+			\item 	So, AM is the software closest to hardware.
+		\end{itemize}
+	\end{itemize}
+	
+	
+\end{frame}
+
+\begin{frame}{How to realize NEMU?}
+	\begin{description}
+		\item[Devices] C variables, arrays, etc.
+		\item[Logic functions] Functions
+		\item[Runtime support] Loop
+	\end{description}
+\end{frame}
 
 
-
-\section{Help you do it! $\longrightarrow$ Brand new PA}
-\begin{frame}[fragile]{Structure of PA}
+\section{Help you do it! $\longrightarrow$ Brand new PA based on AM}
+\begin{frame}[fragile]{Structure of PA-1}
 \begin{verbatim}
     ics2017
     |---nanos-lite    # mini operating system kernel
@@ -312,6 +537,72 @@ What the computer are doing when you execute the program above？
 \end{verbatim}
 \end{frame}
 
+\begin{frame}{Structure of PA-2}
+	\fignocaption{scale=0.4}{brandnewPA.png}
+\end{frame}
+
+\begin{frame}{PA0 and PA1}
+	\begin{itemize}
+		\item PA0 - Environment configuration
+		\item PA1 - Simple monitor
+	\end{itemize}
+	\fignocaption{scale=0.5}{trm.png}
+\end{frame}
+
+\begin{frame}{PA2-Von Neumann Computer System (TRM+IOE)}
+	\begin{itemize}
+		\item Instructions system + I/O
+		\item Run interesting apps on NEMU
+	\end{itemize}
+\fignocaption{scale=0.3}{io.png}
+\begin{columns}
+	\begin{column}{0.2\textwidth}
+		\fignocaption{scale=0.35}{typinggame.png}
+	\end{column}
+\begin{column}{0.2\textwidth}
+	\fignocaption{scale=0.35}{supermario.png}
+\end{column}
+\begin{column}{0.2\textwidth}
+	\fignocaption{scale=0.35}{pal.png}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{PA3- Asynchronous Extension}
+	\begin{itemize}
+		\item Run tiny operating system Nanos-lite on NEMU.
+		\begin{itemize}
+			\item ramdisk, fs, raw img loader
+		\end{itemize}
+		\item Implement some library functions which packing the system call .
+		\item App calls library functions and run PAL.
+	\end{itemize}
+	\fignocaption{scale=0.4}{interrupt.png}
+\end{frame}
+
+\begin{frame}{PA4- Multitask(Protection Extension)}
+	\begin{itemize}
+	\item Virtual storage based on paging, taking out segment.
+	\item Context Switch driven by interruption.
+	\item Run pal,typing game,clock at the same time on Nanos-lite.
+\end{itemize}
+\fignocaption{scale=0.4}{interrupt.png}	
+\end{frame}
+
+\begin{frame}{PA5- Performance}
+	\begin{itemize}
+		\item Elf32 loader
+		\item cache
+		\item TLB
+		\item profiler, performance optimization
+		\item JIT \textit{(i.e just-in-time)} compilation
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\fignocaption{scale=0.4}{estimatedTime.png}
+\end{frame}
 
 \begin{frame}{The End}
 	\fignocaption{scale=0.8}{studentFeedback.png}
