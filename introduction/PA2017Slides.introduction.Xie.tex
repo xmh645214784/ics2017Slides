@@ -27,6 +27,8 @@
 
 \usepackage{graphicx, subcaption}
 
+\usepackage{tikz}
+
 \usepackage{verbatim}
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
@@ -65,6 +67,10 @@
 \author{Xie}
 \institute{xiemhemail@gmail.com}
 \date{Sep ??, 2017}
+\titlegraphic{\includegraphics[height = 2cm]{figure/qrcode.png}}
+
+
+
 \AtBeginSection[]{
 	\begin{frame}[noframenumbering, plain]
 		\frametitle{\titletext}
@@ -93,7 +99,7 @@
 		\item \alert{Instruction}
 		\begin{itemize}
 			\item https://nju-ics.gitbooks.io/ics2017-programming-assignment/
-			\item \huge Please check the "news" module of website at least once each day.
+			\item \alert\huge Please check the "news" module of website at least once each day.
 		\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -102,6 +108,18 @@
 	%TODO
 	emmmmm
 \end{frame}
+
+\begin{frame}{Resources}
+	\begin{description}
+		\item [Plantform and tools] IA-32 + GNU/Linux + gcc + C	
+		\item [Guidebook] https://nju-ics.gitbooks.io/ics2017-programming-assignment/
+		\item [Skeleton]https://github.com/NJU-ProjectN/ics-pa
+	\end{description}
+	\begin{alertblock}{Tip}
+		You can download the PDF or epub version of guide in github.
+	\end{alertblock}
+\end{frame}
+
 
 \section{From Computer System, to ICS, to PA}
 
@@ -178,20 +196,81 @@ What the computer are doing when you execute the program above？
 		\pause
 		\item<1>[PA] \alert{\huge NEMU}(\textit\uwave{ i.e. NJU Emulator})
 	\end{description}
+
+\pause
+\begin{exampleblock}{Question}
+	\huge What is an \textit{emulator}?
+\end{exampleblock}
 \end{frame}
 
 
+\begin{frame}{What is an \textit{emulator}?}
+	\begin{block}{Emulator --Wikipedia}
+		In computing, an \textbf{emulator} is hardware or software that enables one computer system (called the \textit{host}) to behave like another computer system (called the \textit{guest}). 
+		
+		An emulator typically enables the host system to run software or use peripheral devices designed for the guest system. 
+	\end{block}
+\end{frame}
 
-\begin{frame}{Resources}
-	\begin{description}
-		\item [Plantform and tools] IA-32 + GNU/Linux + gcc + C	
-		\item [Guidebook] https://nju-ics.gitbooks.io/ics2017-programming-assignment/
-		\item [Skeleton]https://github.com/NJU-ProjectN/ics-pa
-	\end{description}
-	\begin{alertblock}{Tip}
-		You can download the PDF or epub version of guide in github.
+
+\begin{frame}{What is an \textit{emulator}?}
+	\fignocaption{scale=0.4}{supermario.jpg}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\fignocaption{scale=0.5}{fc.jpg}
+		\end{column}
+	
+		\begin{column}{0.2\textwidth}
+			\begin{tikzpicture}[line width=5pt]
+				%\draw (1,1) node {FC Emulator}
+				\draw[red] [<-] (0,0) --(2,0);
+			\end{tikzpicture}
+		\end{column}
+	
+		\begin{column}{0.4\textwidth}
+			\fignocaption{scale=0.5}{pc.jpg}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{What is an \textit{emulator}?}
+	\fignocaption{scale=0.4}{debian.png}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\fignocaption{scale=0.4}{pc.jpg}
+		\end{column}
+		
+		\begin{column}{0.2\textwidth}
+			\begin{tikzpicture}[line width=5pt]
+			%\draw (1,1) node {FC Emulator}
+			\draw[red] [<-] (0,0) --(2,0);
+			\end{tikzpicture}
+		\end{column}
+		
+		\begin{column}{0.4\textwidth}
+		%	\fignocaption{scale=0.1}{virtualbox.jpg}
+			\fignocaption{scale=0.2}{vmware.jpg}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+
+\begin{frame}{}
+\fignocaption{scale=0.3}{emulate.png}
+\begin{exampleblock}{Question}
+	Does the object know he is living in a virtualized environment? 
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}{}
+	\fignocaption{scale=0.3}{emulate.png}
+	\begin{alertblock}{Reference Answer}
+		He can’t distinguish whether he lives in an virtual environment.
 	\end{alertblock}
 \end{frame}
+
+
 
 %\begin{frame}{学生体会}
 %	2017.1.11 2:14AM   
@@ -219,7 +298,20 @@ What the computer are doing when you execute the program above？
 	\end{itemize}
 \end{frame}
 
+
+
+
 \section{Help you do it! $\longrightarrow$ Brand new PA}
+\begin{frame}[fragile]{Structure of PA}
+\begin{verbatim}
+    ics2017
+    |---nanos-lite    # mini operating system kernel
+    |---navy-apps     # apps
+    |---nemu          # NEMU
+    |---nexus-am      # abstract machine
+\end{verbatim}
+\end{frame}
+
 
 \begin{frame}{The End}
 	\fignocaption{scale=0.8}{studentFeedback.png}
