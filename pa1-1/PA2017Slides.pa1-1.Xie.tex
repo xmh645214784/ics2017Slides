@@ -5,6 +5,7 @@
 \usecolortheme{beaver}
 \usefonttheme[onlymath]{serif} % try "professionalfonts"
 
+\usepackage{ctex}
 
 \graphicspath{{./figure/}}
 
@@ -19,6 +20,7 @@
 \usepackage{pifont}
 \usepackage{hyperref}
 \usepackage{comment}
+
 
 \usepackage[normalem]{ulem}
 \newcommand{\middlewave}[1]{\raisebox{0.5em}{\uwave{\hspace{#1}}}}
@@ -81,5 +83,203 @@
 %%%%%%%%%%
 \begin{document}
 	\maketitle
-	
+
+\begin{frame}{The simplest computer- Turing machine}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{block}{Architecture of the simplest computer }
+				\begin{description}
+					\item[To place programs] Memory
+					\item[To process data]Adder
+					\item[To store temporary results efficiently]Reg
+				\end{description}
+			\end{block}
+			\fignocaption{scale=0.4}{trm.png}
+			
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{block}{Working mode of the simplest computer}
+				\begin{itemize}
+					\item Fetch instruction from Mem using PC.
+					\item Execute instruction.
+					\item Update PC.
+				\end{itemize}
+			\end{block}
+			\fignocaption{scale=0.5}{tapemachine.jpg}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\section{Sketlon of NEMU}
+\begin{frame}[fragile]{Structure of PA}
+\begin{verbatim}
+ics2017
+|---nanos-lite    # mini operating system kernel
+|---navy-apps     # apps
+|---nemu          # NEMU
+|---nexus-am      # abstract machine
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Structure of NEMU}
+\fignocaption{scale=0.3}{structureOfNEMU.png}
+\end{frame}
+
+\begin{frame}{Flow of execution}
+\fignocaption{scale=0.35}{main.c.png}
+\end{frame}
+
+\begin{frame}{main()}
+	\begin{block}{nemu/src/main.c}
+		\begin{description}
+			\item[init\_monitor()] Initialize monitor
+			\item[ui\_mainloop()] Ui main loop
+		\end{description}
+	\end{block}
+	\begin{alertblock}{Tip - Ctags}
+Ctags is a programming tool that generates an index (or tag) file of names found in source and header files of various programming languages. Depending on the language, functions, variables, class members, macros and so on may be indexed. These tags allow definitions to be quickly and easily located by a text editor.
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}{init\_monitor()}
+	\begin{block}{nemu/src/monitor/monitor.c}
+	\begin{description}
+		\item [init\_log()]Initialize log file
+		\item [reg\_test()]Test the CPU\_State struct
+		\item [load\_img()]Load the image to memory
+		\item [restart()]Set \%eip
+		\item [init\_*()]Do some else  initialization work
+		\item [welcome()]Output \alert{Welcome to NEMU!}
+	\end{description}
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{ui\_mainloop()}
+	\begin{block}{nemu/src/monitor/debug/ui.c}
+\begin{verbatim}
+while(1)
+{
+   read the user command
+   execute the user command
+}
+\end{verbatim}
+	\end{block}
+\begin{block}{We already have implemented some commands}
+	c,q,help
+\end{block}
+
+\begin{block}
+
+\end{block}
+
+\begin{exampleblock}{Question}
+	In cmd\_c(), we call the function cpu\_exec(-1), why -1? 
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}{Commands in monitor}
+	\fignocaption{scale=0.3}{command.png}
+\end{frame}
+
+\begin{frame}{Infrastructure}
+	\begin{itemize}
+		\item Improve developing efficiency.
+	\end{itemize}
+	\begin{block}{Examples}
+		\begin{itemize}
+			\item Makefile
+			\item Vivado
+			\item Google
+			\begin{itemize}
+				\item Adder
+				\item Multiplier
+			\end{itemize}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\section{Requirements of PA1-1}
+
+\begin{frame}{Requirements of PA1-1}
+	\begin{description}
+		\item [nemu/include/cpu/reg.h]Implementing the struct of Regs
+		\item [nemu/src/monitor/debug/ui.c] Parsing commands
+		\item [nemu/src/monitor/debug/ui.c] Implementing some commands
+	\end{description}
+\end{frame}
+
+\begin{frame}{Struct of Regs}
+	\begin{itemize}
+		\item nemu/include/cpu/reg.h
+		\item The function reg\_test() in nemu/src/cpu/reg.c will test your implementing.Assertion fail will be triggered if you are wrong.
+		\item If right, you will \alert{hit good trap} if you enter the command 'c' in monitor.
+	\end{itemize}
+	\begin{alertblock}{Tip}
+		\begin{itemize}
+			\item Understand the structure of CPU regs.
+			\item Understand the differences between struct and union in C language.
+		\end{itemize}
+	\end{alertblock}
+\end{frame}
+
+
+\begin{frame}{Parsing commands}
+	\begin{itemize}
+		\item nemu/src/monitor/debug/ui.c ui\_mainloop()
+		\item Nothing to say.
+		\item \alert{RTFSC,RTFM}
+	\end{itemize}
+	\begin{alertblock}{Tip}
+		\begin{itemize}
+			\item man readline
+			\item man strtok
+			\item man sscanf
+		\end{itemize}
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}{Implementing some commands -1}
+	\begin{itemize}
+		\item nemu/src/monitor/debug/ui.c
+		\item si
+		\item info r
+		\item x
+	\end{itemize}
+	\begin{block}{Question}
+		Do you know what type the array \textbf{opcode\_table} is ?
+	\end{block}
+	\begin{alertblock}{Tip}
+		\begin{itemize}
+			\item Understand function pointer
+		\end{itemize}
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}{Implementing some commands -2}
+	\begin{block}{si}
+		\begin{itemize}
+			\item Understand the meaning of \textbf{cpu\_exec()}.RTFSC
+		\end{itemize}
+	\end{block}
+	\begin{block}{info r}
+		\begin{itemize}
+			\item So easy! 
+		\end{itemize}
+	\end{block}
+	\begin{block}{x}
+	\begin{itemize}
+		\item Try to find the interface of accessing memory.
+		\begin{alertblock}{Tip}
+		Function \textbf{load\_default\_img()} in nemu/src/monitor/monitor.c will tell you whether your command \textbf{x} is right.
+		\end{alertblock}
+	\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}{The end}
+	\centering{\huge{Thanks!}}
+	\centering{\huge{祝学习顺利、身心愉快~欢迎提问}}
+\end{frame}
 \end{document}
