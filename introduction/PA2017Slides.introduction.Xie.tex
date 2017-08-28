@@ -499,32 +499,110 @@ What the computer are doing when you execute the program above？
 \fignocaption{scale=0.4}{am.png}
 \end{frame}
 
-\begin{frame}{Meaning of AM}
-	\begin{itemize}
-		\item Devices vary from computer to computer, and ISA.
-		\item If we predefine some APIs which computers can do, then all computers realize them in bottom,we'll get a unified Abstract Machine.
-		\begin{itemize}
-			\item Then programs can directly run on AM with no care about the differences among ISAs.
-		\end{itemize}
-		
-		\item ISA = Interface between software and hardware
-		\item APIs of AM = Software of ISA.
-		\begin{itemize}
-			\item 	So, AM is the software closest to hardware.
-		\end{itemize}
-	\end{itemize}
-	
-	
-\end{frame}
+%\begin{frame}{Meaning of AM}
+%	\begin{itemize}
+%		\item Devices vary from computer to computer, and ISA.
+%		\item If we predefine some APIs which computers can do, then all computers realize them in bottom,we'll get a unified Abstract Machine.
+%		\begin{itemize}
+%			\item Then programs can directly run on AM with no care about the differences among ISAs.
+%		\end{itemize}
+%		
+%		\item ISA = Interface between software and hardware
+%		\item APIs of AM = Software of ISA.
+%		\begin{itemize}
+%			\item 	So, AM is the software closest to hardware.
+%		\end{itemize}
+%	\end{itemize}
+%	
+%	
+%\end{frame}
 
 \begin{frame}{How to realize NEMU?}
+	\begin{block}{}
+		By now, we have known what a modern computer should look like, then how we emulate it? Or what is the constituent of NEMU?
+	\end{block}
+\pause
+	\begin{block}{What tools we already have?}
+		\pause
+		\begin{itemize}
+			\item Variables,data structure
+			\item Algorithm
+		\end{itemize}
+	
+		
+	\end{block}
 	\begin{description}
-		\item[Devices] C variables, arrays, etc.
-		\item[Logic functions] Functions
+		\item[Devices] C variables, arrays, link list, etc.
+		\item[Logic functions] Algorithmic functions
 		\item[Runtime support] Loop
 	\end{description}
 \end{frame}
 
+\begin{frame}[fragile]{E.g. cpu}
+\begin{verbatim}
+struct CPU_State
+{
+    rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
+    vaddr_t eip;
+    EFLAGS;
+    CRs;
+    ......
+}
+\end{verbatim}
+\fignocaption{scale=0.2}{cpu.jpg}
+\end{frame}
+
+\begin{frame}[fragile]{E.g. memory}
+\begin{verbatim}
+uint8_t pmem[PMEM_SIZE];
+\end{verbatim}
+	\fignocaption{scale=0.2}{memory.jpg}
+\end{frame}
+
+\begin{frame}{The simplest computer- Turing machine}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{block}{Architecture of the simplest computer }
+					\begin{description}
+					\item[To place programs] Memory
+					\item[To process data]Adder
+					\item[To store temporary results efficiently]Reg
+				\end{description}
+			\end{block}
+			\fignocaption{scale=0.4}{trm.png}
+		
+		\end{column}
+		\begin{column}{0.5\textwidth}
+				\begin{block}{Working mode of the simplest computer}
+				\begin{itemize}
+					\item Fetch instruction from Mem using PC.
+					\item Execute instruction.
+					\item Update PC.
+				\end{itemize}
+			\end{block}
+			\fignocaption{scale=0.5}{tapemachine.jpg}
+	\end{column}
+	\end{columns}
+\end{frame}
+
+
+\begin{frame}{TRM in NEMU}
+		\begin{block}{Architecture of the simplest computer }
+			\begin{description}
+				\item[Memory] \textbf{pmem array}(128MB nemu/src/memory/memory.c)
+				\item[Adder(ALU)] \textbf{functions} 
+				\item[Reg]	\textbf{CPU\_state struct} (nemu/include/cpu/reg.h)
+			\end{description}
+		\end{block}
+		\begin{block}{Working mode of the simplest computer}
+			\textbf{Function cpu\_exec() }(nemu/src/monitor/cpu-exec.c)
+			\begin{itemize}
+				\item Fetch instruction from Mem using PC.
+				\item Execute instruction.
+				\item Update PC.
+			\end{itemize}
+		\end{block}
+\end{frame}
 
 \section{Help you do it! $\longrightarrow$ Brand new PA based on AM}
 \begin{frame}[fragile]{Structure of PA-1}
@@ -583,11 +661,11 @@ What the computer are doing when you execute the program above？
 
 \begin{frame}{PA4- Multitask(Protection Extension)}
 	\begin{itemize}
-	\item Virtual storage based on paging, taking out segment.
-	\item Context Switch driven by interruption.
+	\item Virtual storage.
+	\item Interruption.
 	\item Run pal,typing game,clock at the same time on Nanos-lite.
 \end{itemize}
-\fignocaption{scale=0.4}{interrupt.png}	
+\fignocaption{scale=0.4}{am.png}	
 \end{frame}
 
 \begin{frame}{PA5- Performance}
