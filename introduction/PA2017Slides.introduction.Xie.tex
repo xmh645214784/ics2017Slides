@@ -122,7 +122,7 @@
 		\item	[\href{https://github.com/xmh645214784/ics2017Slides/blob/master/introduction/Q3.doc}{Q3.doc}] Please fill it up when submitting \textbf{each} large stage.
 	\end{description}
 \begin{alertblock}{Submission format}
-	Compress them with your report and PA. Submission of the first time of Q1 and Q2 (\textit{i.e. Before the start of PA}) can be postponed to the submission of PA1. But make sure you have distinguish them in file name such like Q1\_1st.doc,Q1\_2nd.doc.
+	Compress them with your report and PA. Submission of the first time of Q1 and Q2 (\textit{i.e. Before the start of PA}) can be postponed to the submission of whole PA1. But make sure you have distinguish them in file name such like Q1\_1st.doc,Q1\_2nd.doc.
 \end{alertblock}
 \end{frame}
 
@@ -415,22 +415,22 @@ What the computer are doing when you execute the program above？
 	\begin{itemize}
 		\item \alert{Instruction Set = All things computer can do}
 		\begin{itemize}
-			\item	mov, inc,jmp
+			\item	e.g. inc,dec,jne
 		\end{itemize}
 
 \end{itemize}
 
 \begin{block}{Question}
-	What can TRM do with just these instructions?
+	What can TRM do with just these 3 instructions?
 \end{block}
 \pause
 \begin{itemize}
 		\item Computability theory shows that TRM can do anything!
 		\begin{description}
-			\item [loop]  jmp
+			\item [loop]  jne
 			\item [add] inc,inc,inc,inc,inc...
 			\item [multiply] add,add,add,add...
-			\item [function call] mov (transfer of parameters),jmp(transfer of control)
+			\item [\textbf{NEMU}] Wow!
 		\end{description}
 
 	\end{itemize}
@@ -439,7 +439,7 @@ What the computer are doing when you execute the program above？
 
 \begin{frame}{Instruction Set}
 	\begin{itemize}
-		\item However,the speed of TRM is so slow.
+		\item However,the speed of only 3 instructions-version TRM is so slow.
 		\item Why do we add more powerful instructions to the computer?
 		\item \alert{Modern computer Instruction Set}(x86, mips…)
 		\begin{itemize}
